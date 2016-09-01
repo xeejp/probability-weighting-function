@@ -1,6 +1,6 @@
-defmodule TimeRate.Actions do
-  alias TimeRate.Participant
-  alias TimeRate.Host
+defmodule ProbabilityWeighTingFunction.Actions do
+  alias ProbabilityWeighTingFunction.Participant
+  alias ProbabilityWeighTingFunction.Host
 
   def change_page(data, page) do
     action = get_action("change page", page)
@@ -30,8 +30,8 @@ defmodule TimeRate.Actions do
     format(data,host,dispatch_to(id,participant))
   end
 
-  def next(data,id,slideIndex,rate) do
-    participant = get_action("change index", %{slideIndex_data: slideIndex , rate_data: rate})
+  def next(data,id,slideIndex) do
+    participant = get_action("change index", %{slideIndex_data: slideIndex , add: data.participants[id].add})
     format(data,nil,dispatch_to(id,participant))
   end
 

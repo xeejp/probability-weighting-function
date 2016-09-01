@@ -9,12 +9,7 @@ const reducer = concatenateReducers([
     'change page': (_, { payload }) => ({ page: payload }),
     'joined': (_, { payload }) => ({ actives: payload }),
     'reset': (_, { payload }) => ( 
-      { 
-        anses: 0,
-        ansed: false,
-        rate: [[0.8,1.4,2],[0.8,1.4,2],[0.8,1.4,2]],
-        state: 0,
-        slideIndex: 0
+      { //
       }
     ),
     'set question': (_, { payload }) => (
@@ -23,10 +18,10 @@ const reducer = concatenateReducers([
         state: 1,
       }
     ),
-    'change index': (_, {payload:{ slideIndex_data,rate_data }}) => (
+    'change index': (_, {payload:{ slideIndex_data, add }}) => (
       {
         slideIndex: slideIndex_data,
-        rate: rate_data,
+        add: add,
       }
     ),
     'to_result': (_, { payload }) => (

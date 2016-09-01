@@ -29,7 +29,7 @@ class Experiment extends Component {
 		case 0:
 			return (
 				<Card>
-					<CardTitle title="時間割引率" subtitle="ルールの説明" />
+					<CardTitle title="確率加重関数の推定" subtitle="ルールの説明" />
 					<CardText>
 						<p>いくつかの二択の質問に答えてもらいます</p>
 						<p>OKを押すと実験が始まります</p> <br/>

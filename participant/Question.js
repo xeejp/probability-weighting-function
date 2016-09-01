@@ -6,8 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton'
 import SwipeableViews from 'react-swipeable-views'
 import { next } from './actions'
 
-const mapStateToProps = ({ money,unit,ansed,question,slideIndex,rate}) => ({
-  money,unit,ansed,question,slideIndex,rate
+const mapStateToProps = ({ money,unit,ansed,question,slideIndex,rate,add}) => ({
+  money,unit,ansed,question,slideIndex,rate,add
 })
 
 class Question extends Component  {
@@ -21,59 +21,29 @@ class Question extends Component  {
   }
 
   Question_text(index){
-	  const { money,unit,question,rate} = this.props
+	  const { money, unit, question, rate, add} = this.props
 	  const type = question[index]
   return (
-  <span>
-   <RaisedButton onClick={this.next.bind(this, {choice: 1 ,type: type, rate: rate} )} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>
+  <div>
+   <RaisedButton onClick={this.next.bind(this, {choice: 1, type: type})} style={{float: 'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
+     <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
+        100%の確率で1000{unit}もらえる。
+     </div>
+   </RaisedButton>
+   <RaisedButton onClick={this.next.bind(this, {choice: 2, type: type})} style={{float:  'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>
     <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
         {(() => {
-            let str = ""                    
-            switch(type){
-                case 0:
-                    str = "一ヶ月後に"
-                    break
-                case 1:
-                    str = "半年後に"
-                    break;
-                case 2:
-                    str = "一年後に"
-                    break;
-                default:
-                    return <span></span>
-            }
-            return (<p>{str+money+unit}を受け取る</p>)                        
+            return (type <= 2)? <p>{rate[type]}%の確率で{(add + money) + unit}、{100 - rate[type]}%の確率で0{unit}もらえる。</p>
+            : <p>{rate[type - 3]}%の確率で{(add + money) + unit}、{100 - rate[type - 3]}%の確率で0{unit}失う。</p>
         })()}
      </div>
    </RaisedButton>
-   <RaisedButton onClick={this.next.bind(this, {choice:2 ,type: type, rate: rate} )} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
-     <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
-        {(() => {
-            let str = ""                   
-            switch(type){
-                case 0:
-                    str = "一ヶ月と一週間後に"
-                    break;
-                case 1:
-                    str = "半年と一週間後に"
-                    break;
-                case 2:
-                    str = "一年と一週間後に"
-                    break;
-                default:
-                    str = ""
-                    break;
-            }
-            return (<p>{str + Math.round(money * rate[type][1]) + unit}を受け取る</p>)                        
-        })()}
-     </div>
-   </RaisedButton>
-  </span>)
+  </div>)
   }
 
   wait(){
 	  const {rate,slideIndex} = this.props
-      if(slideIndex == 7 || slideIndex == 15) setTimeout(this.next.bind(this, {choice:1 ,type: 3, rate: rate}),10000)
+      if(slideIndex != 0 && slideIndex % 7 == 0) setTimeout(this.next.bind(this, {choice:1 ,type: 3, rate: rate}),10000)
       return(<div>
       <p>しばらくお待ちください</p>
       </div>
@@ -84,7 +54,7 @@ class Question extends Component  {
 	  const {rate} = this.props
       return(<div>
       <p>終わり</p>
-      <RaisedButton onClick={this.next.bind(this, {choice:1 ,type: 4, rate: rate})}>結果へ</RaisedButton>
+      <RaisedButton onClick={this.next.bind(this, {choice:1 ,type: 6, rate: rate})}>結果へ</RaisedButton>
       </div>
       )
   }
@@ -124,6 +94,30 @@ class Question extends Component  {
                   <div>{this.Question_text(18)} 	</div>
                   <div>{this.Question_text(19)} 	</div>
                   <div>{this.Question_text(20)}		</div>
+                  <div>{this.wait()} 				</div>
+                  <div>{this.Question_text(21)} 	</div>
+                  <div>{this.Question_text(22)} 	</div>
+                  <div>{this.Question_text(23)} 	</div>
+                  <div>{this.Question_text(24)} 	</div>
+                  <div>{this.Question_text(25)} 	</div>
+                  <div>{this.Question_text(26)} 	</div>
+                  <div>{this.Question_text(27)}		</div>
+                  <div>{this.wait()} 				</div>
+                  <div>{this.Question_text(28)} 	</div>
+                  <div>{this.Question_text(29)} 	</div>
+                  <div>{this.Question_text(30)} 	</div>
+                  <div>{this.Question_text(31)} 	</div>
+                  <div>{this.Question_text(32)} 	</div>
+                  <div>{this.Question_text(33)} 	</div>
+                  <div>{this.Question_text(34)}		</div>
+                  <div>{this.wait()} 				</div>
+                  <div>{this.Question_text(35)} 	</div>
+                  <div>{this.Question_text(36)} 	</div>
+                  <div>{this.Question_text(37)} 	</div>
+                  <div>{this.Question_text(38)} 	</div>
+                  <div>{this.Question_text(39)} 	</div>
+                  <div>{this.Question_text(40)} 	</div>
+                  <div>{this.Question_text(41)}		</div>
                   <div>{this.finish()} 				</div>
         		</SwipeableViews>
       		</div>

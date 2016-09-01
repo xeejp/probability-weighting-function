@@ -12,7 +12,7 @@ function* fetchContentsSaga() {
 function* startSaga(){
   while(true){
     yield take(`${Start}`)
-    let q = [0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2]
+    let q = [0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4,5,5,5,5,5,5,5]
     {
       let i = q.length
       while(i){
@@ -28,23 +28,21 @@ function* startSaga(){
 
 function* nextSaga(){
   while(true){
-    const { payload:{choice,type,rate} } = yield take(`${next}`)
-    console.log(choice)
-    console.log(type)
+    const { payload:{choice, type} } = yield take(`${next}`)
+    const { payload: {add} } = yield select(add => add)
+    var flag = (choice == 1)? +1 : -1
+    flag = (type <= 2)? +flag : -flag
+    console.log(add + " " + choice + " " +  type)
     switch(type){
       case 0:
       case 1:
       case 2:
-        let next_rate = rate.concat()
-        if(choice == 1){
-          next_rate[type][0] = next_rate[type][1]
-        }else {
-          next_rate[type][2] = next_rate[type][1]
-        }
-        next_rate[type][1] = (next_rate[type][2]-next_rate[type][0])*Math.random()+next_rate[type][0]
-        yield call(sendData, 'next',next_rate)
-        break;
+      case 3:
       case 4:
+      case 5:
+        yield call(sendData, 'next',  {add: Math.abs(add) * flag, choice: choice})
+        break;
+      case 6:
         yield call(sendData, 'finish')
         break
       default:

@@ -1,4 +1,4 @@
-defmodule TimeRate do
+defmodule ProbabilityWeighTingFunction do
   use Xee.ThemeScript
   require Logger
 
@@ -7,9 +7,9 @@ defmodule TimeRate do
   require_file "scripts/participant.exs"
   require_file "scripts/actions.exs"
 
-  alias TimeRate.Main
-  alias TimeRate.Host
-  alias TimeRate.Participant
+  alias ProbabilityWeighTingFunction.Main
+  alias ProbabilityWeighTingFunction.Host
+  alias ProbabilityWeighTingFunction.Participant
 
   # Callbacks
   def script_type do
@@ -31,7 +31,7 @@ defmodule TimeRate do
 
   # Host router
   def handle_received(data, %{"action" => action, "params" => params}) do
-    Logger.debug("[Time Rate] #{action} #{params}")
+    Logger.debug("[PWF] #{action} #{params}")
     result = case {action, params} do
       {"fetch contents", _} -> Host.fetch_contents(data)
       {"change page", page} -> Host.change_page(data, page)
@@ -43,11 +43,11 @@ defmodule TimeRate do
 
   # Participant router
   def handle_received(data, %{"action" => action, "params" => params}, id) do
-    Logger.debug("[Time Rate] #{action}")
+    Logger.debug("[PWF] #{action}")
     result = case {action, params} do
       {"fetch contents", _} -> Participant.fetch_contents(data, id)
       {"set question", question} -> Participant.set_question(data,id,question)
-      {"next", rate} -> Participant.next(data,id,rate)
+      {"next", add} -> Participant.next(data,id,add)
       {"finish", _} -> Participant.finish(data,id)
       _ -> {:ok, %{"data" => data}}
     end

@@ -1,6 +1,6 @@
-defmodule TimeRate.Host do
-  alias TimeRate.Main
-  alias TimeRate.Actions
+defmodule ProbabilityWeighTingFunction.Host do
+  alias ProbabilityWeighTingFunction.Main
+  alias ProbabilityWeighTingFunction.Actions
 
   require Logger
 
@@ -25,9 +25,11 @@ defmodule TimeRate.Host do
       {id,
         %{
           ansed: false,
-          rate: [[0.8,1.4,2],[0.8,1.4,2],[0.8,1.4,2]],
-          question: [0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2],
-          state: 0, 
+          rate: [30, 60, 90],
+          question: [0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4,5,5,5,5,5,5,5],
+          add: 1000,
+          befor: -1,
+          state: 0,
           slideIndex: 0,
         }
       }
