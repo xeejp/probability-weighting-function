@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Step, Stepper, StepButton } from 'material-ui/Stepper'
 
-import { submitPage, nextPage } from './actions'
+import { submitPage, nextPage, backPage } from './actions'
 
 import { getPage } from 'util/index'
 
@@ -18,6 +18,11 @@ class PageButtons extends Component {
   changePage(page) {
     const { dispatch } = this.props
     dispatch(submitPage(page))
+  }
+
+    backPage(page) {
+    const { dispatch } = this.props
+    dispatch(backPage())
   }
 
   nextPage(page) {
@@ -42,6 +47,7 @@ class PageButtons extends Component {
         <Stepper activeStep={pages.indexOf(page)} linear={false}>
           {buttons}
         </Stepper>
+        <RaisedButton onClick={this.backPage.bind(this)} disabled={page == "waiting"} style={{ marginLeft: '3%' }}>戻る</RaisedButton>
         <RaisedButton onClick={this.nextPage.bind(this)} primary={true} style={{ marginLeft: '3%' }}>次へ</RaisedButton>
       </span>
     )

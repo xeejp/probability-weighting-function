@@ -20,7 +20,18 @@ defmodule ProbabilityWeighTingFunction.Actions do
 
   def all_reset(data) do
     host = get_action("update contents", Host.format_contents(data))
-    action = get_action("reset", %{})
+    action = get_action("reset", %{
+        ansed: false,
+        rate: [30, 60, 90],
+        question: [0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4,5,5,5,5,5,5,5],
+        add: %{"0" =>1000, "1" =>1000, "2" =>1000, "3" =>1000, "4" =>1000, "5" =>1000},
+        plus: %{"0" =>1000, "1" =>1000, "2" =>1000, "3" =>1000, "4" =>1000, "5" =>1000},
+        befor: %{"0" => -1, "1" => -1, "2" => -1, "3" => -1, "4" => -1, "5" => -1},
+        down: %{"0" => false, "1" => false, "2" => false, "3" => false, "4" => false, "5" => false},
+        state: 0,
+        slideIndex: 0,
+      }
+    )
     format(data, host, dispatch_to_all(data, action))
   end
 
@@ -31,7 +42,7 @@ defmodule ProbabilityWeighTingFunction.Actions do
   end
 
   def next(data,id,slideIndex) do
-    participant = get_action("change index", %{slideIndex_data: slideIndex , add: data.participants[id].add})
+    participant = get_action("change index", %{slideIndex_data: slideIndex , add: data.participants[id].add, plus: data.participants[id].plus})
     format(data,nil,dispatch_to(id,participant))
   end
 

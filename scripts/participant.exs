@@ -1,6 +1,8 @@
 defmodule ProbabilityWeighTingFunction.Participant do
   alias ProbabilityWeighTingFunction.Actions
 
+  require Logger
+
   # Actions
   def fetch_contents(data, id) do
     Actions.update_participant_contents(data, id)
@@ -16,19 +18,24 @@ defmodule ProbabilityWeighTingFunction.Participant do
   def next(data,id,add) do
     slideIndex = get_in(data,[:participants,id,:slideIndex])
     slideIndex = slideIndex + 1
-    add.add
-    nextadd = add["add"]
-    if data.participants[id].befor != -1 do
-      if add["choice"] == data.participants[id].befor do
-       nextadd = add["add"]
+      n = to_string(add["type"])
+    if n != "6" do
+      nextadd = add["add"]
+      data = data |> put_in([:participants, id, :plus], add["plus"])
+     if data.participants[id].befor[n] != -1 do
+       if add["choice"] != data.participants[id].befor[n] do
+         data = data |> put_in([:participants, id, :down, n], true)
+       end
+        if data.participants[id].down[n], do: data = data |> put_in([:participants, id, :plus, n], div(data.participants[id].plus[n], 2))
+        nextadd = nextadd |> Map.put(n, add["add"][n] + data.participants[id].plus[n])
      else
-        nextadd = div(add["add"], 2)
+        nextadd = nextadd |> Map.put(n, add["add"][n] + data.participants[id].plus[n])
       end
+      data = data |> put_in([:participants, id, :add], nextadd)
+                       |> put_in([:participants, id, :befor, n], add["choice"])
     end
     data = data
            |>put_in([:participants,id,:slideIndex],slideIndex)
-           |>put_in([:participants, id, :add], div(abs(add["add"]), 2))
-           |>put_in([:participants, id, :befor], add["choice"])
     Actions.next(data,id,slideIndex)
   end
 

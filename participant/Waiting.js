@@ -10,7 +10,7 @@ const mapStateToProps = ({ actives }) => ({
 
 const Waiting = ({ actives }) => (
 	<Card>
-		<CardTitle title="時間割引率" subtitle="待機画面" />
+		<CardTitle title="確率加重関数の推定" subtitle="待機画面" />
 		<CardText>
 			<p>参加者の登録を待っています。</p>
             <p>現在{actives}人が参加してます。</p>

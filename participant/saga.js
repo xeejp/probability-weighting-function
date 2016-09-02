@@ -29,10 +29,9 @@ function* startSaga(){
 function* nextSaga(){
   while(true){
     const { payload:{choice, type} } = yield take(`${next}`)
-    const { payload: {add} } = yield select(add => add)
+    const { add: add, plus: plus } = yield select(({ add, plus }) => ({ add, plus }))
     var flag = (choice == 1)? +1 : -1
     flag = (type <= 2)? +flag : -flag
-    console.log(add + " " + choice + " " +  type)
     switch(type){
       case 0:
       case 1:
@@ -40,13 +39,14 @@ function* nextSaga(){
       case 3:
       case 4:
       case 5:
-        yield call(sendData, 'next',  {add: Math.abs(add) * flag, choice: choice})
+        plus[type] = Math.abs(plus[type]) * flag
+        yield call(sendData, 'next',  {add: add, plus: plus, choice: choice, type: type})
         break;
-      case 6:
+      case 7:
         yield call(sendData, 'finish')
         break
       default:
-        yield call(sendData, 'next',rate)
+        yield call(sendData, 'next', {add: add, plus: plus, choice: choice, type: type})
         break
   }
   }

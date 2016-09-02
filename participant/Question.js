@@ -13,9 +13,11 @@ const mapStateToProps = ({ money,unit,ansed,question,slideIndex,rate,add}) => ({
 class Question extends Component  {
     constructor(props) {
     super(props)
+    this.only = true
   }
 
   next(value) {
+    this.only = true
     const{ dispatch } = this.props
     dispatch(next(value))
   }
@@ -27,14 +29,14 @@ class Question extends Component  {
   <div>
    <RaisedButton onClick={this.next.bind(this, {choice: 1, type: type})} style={{float: 'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
      <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
-        100%の確率で1000{unit}もらえる。
+        100%の確率で1000{unit + ((type <= 2)? "もらえる。" : "失う。")}
      </div>
    </RaisedButton>
    <RaisedButton onClick={this.next.bind(this, {choice: 2, type: type})} style={{float:  'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>
     <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
         {(() => {
-            return (type <= 2)? <p>{rate[type]}%の確率で{(add + money) + unit}、{100 - rate[type]}%の確率で0{unit}もらえる。</p>
-            : <p>{rate[type - 3]}%の確率で{(add + money) + unit}、{100 - rate[type - 3]}%の確率で0{unit}失う。</p>
+            return (type <= 2)? <p>{rate[type]}%の確率で{(add[type] + money) + unit}、{100 - rate[type]}%の確率で0{unit}もらえる。</p>
+            : <p>{rate[type - 3]}%の確率で{(add[type] + money) + unit}、{100 - rate[type - 3]}%の確率で0{unit}失う。</p>
         })()}
      </div>
    </RaisedButton>
@@ -42,19 +44,22 @@ class Question extends Component  {
   }
 
   wait(){
-	  const {rate,slideIndex} = this.props
-      if(slideIndex != 0 && slideIndex % 7 == 0) setTimeout(this.next.bind(this, {choice:1 ,type: 3, rate: rate}),10000)
-      return(<div>
-      <p>しばらくお待ちください</p>
-      </div>
-      )
+	  const {slideIndex} = this.props
+    var t = slideIndex + 1
+    if(this.only && t != 48 && t % 8 == 0) {
+      setTimeout(this.next.bind(this, {choice:1 ,type: 6}), 10000)
+      this.only = false
+    }
+    return(<div>
+    <p>しばらくお待ちください</p>
+    </div>
+    )
   }
 
   finish(){
-	  const {rate} = this.props
       return(<div>
       <p>終わり</p>
-      <RaisedButton onClick={this.next.bind(this, {choice:1 ,type: 6, rate: rate})}>結果へ</RaisedButton>
+      <RaisedButton onClick={this.next.bind(this, {choice:1 ,type: 7})}>結果へ</RaisedButton>
       </div>
       )
   }
@@ -70,7 +75,7 @@ class Question extends Component  {
         	<p>実験画面</p>
       		<div style={{height: 'auto'}}>
       	  	<h5>どちらが良いか選択してください</h5>
-        		<SwipeableViews index={slideIndex} disabled={true}>          		
+        		<SwipeableViews index={slideIndex} disabled={true}>
                   <div>{this.Question_text(0)}  	</div>
                   <div>{this.Question_text(1)}    	</div>
                   <div>{this.Question_text(2)} 		</div>

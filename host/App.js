@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { fetchContents } from './actions'
 
 import PageButtons from './PageButtons'
-import Information from './Information'
 import Users from './Users'
 
 import Chart from 'components/Chart'
@@ -32,7 +31,6 @@ class App extends Component {
       return (
         <div>
           <PageButtons />
-          <Information />
           <Users />
         </div>
       )
