@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import { fetchContents } from './actions'
 
+import Divider from 'material-ui/Divider'
+
 import PageButtons from './PageButtons'
 import Users from './Users'
 
@@ -31,6 +33,12 @@ class App extends Component {
       return (
         <div>
           <PageButtons />
+            <Divider
+              style={{
+                marginTop: '5%',
+                marginBottom: '5%'
+             }}
+            />
           <Users />
         </div>
       )

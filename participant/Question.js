@@ -70,61 +70,23 @@ class Question extends Component  {
     var index
     console.log(question)
 
+    var questionlist = new Array()
+    var t = 0
+    for(let i = 0; i < 6; i++){
+      for(let j = 0; j < 7; j++){
+        questionlist[t++] = <div key={t}>{this.Question_text(i * 7 + j)}</div>
+      }
+      questionlist[t++] = <div key={t}>{this.wait()}</div>
+    }
+
+    questionlist[t - 1] = <div key={t}>{this.finish()}</div>
+
     return (
         <div>
         	<p>実験画面</p>
       		<div style={{height: 'auto'}}>
       	  	<h5>どちらが良いか選択してください</h5>
-        		<SwipeableViews index={slideIndex} disabled={true}>
-                  <div>{this.Question_text(0)}  	</div>
-                  <div>{this.Question_text(1)}    	</div>
-                  <div>{this.Question_text(2)} 		</div>
-                  <div>{this.Question_text(3)} 		</div>
-                  <div>{this.Question_text(4)} 		</div>
-                  <div>{this.Question_text(5)} 		</div>
-                  <div>{this.Question_text(6)} 		</div>
-                  <div>{this.wait()} 				</div>
-                  <div>{this.Question_text(7)} 		</div>
-                  <div>{this.Question_text(8)} 		</div>
-                  <div>{this.Question_text(9)} 		</div>
-                  <div>{this.Question_text(10)} 	</div>
-                  <div>{this.Question_text(11)} 	</div>
-                  <div>{this.Question_text(12)} 	</div>
-                  <div>{this.Question_text(13)} 	</div>
-                  <div>{this.wait()} 				</div>
-                  <div>{this.Question_text(14)} 	</div>
-                  <div>{this.Question_text(15)} 	</div>
-                  <div>{this.Question_text(16)} 	</div>
-                  <div>{this.Question_text(17)} 	</div>
-                  <div>{this.Question_text(18)} 	</div>
-                  <div>{this.Question_text(19)} 	</div>
-                  <div>{this.Question_text(20)}		</div>
-                  <div>{this.wait()} 				</div>
-                  <div>{this.Question_text(21)} 	</div>
-                  <div>{this.Question_text(22)} 	</div>
-                  <div>{this.Question_text(23)} 	</div>
-                  <div>{this.Question_text(24)} 	</div>
-                  <div>{this.Question_text(25)} 	</div>
-                  <div>{this.Question_text(26)} 	</div>
-                  <div>{this.Question_text(27)}		</div>
-                  <div>{this.wait()} 				</div>
-                  <div>{this.Question_text(28)} 	</div>
-                  <div>{this.Question_text(29)} 	</div>
-                  <div>{this.Question_text(30)} 	</div>
-                  <div>{this.Question_text(31)} 	</div>
-                  <div>{this.Question_text(32)} 	</div>
-                  <div>{this.Question_text(33)} 	</div>
-                  <div>{this.Question_text(34)}		</div>
-                  <div>{this.wait()} 				</div>
-                  <div>{this.Question_text(35)} 	</div>
-                  <div>{this.Question_text(36)} 	</div>
-                  <div>{this.Question_text(37)} 	</div>
-                  <div>{this.Question_text(38)} 	</div>
-                  <div>{this.Question_text(39)} 	</div>
-                  <div>{this.Question_text(40)} 	</div>
-                  <div>{this.Question_text(41)}		</div>
-                  <div>{this.finish()} 				</div>
-        		</SwipeableViews>
+        		<SwipeableViews index={slideIndex} disabled={true}>{questionlist}</SwipeableViews>
       		</div>
       	</div>
     )

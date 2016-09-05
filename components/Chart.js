@@ -1,117 +1,84 @@
-﻿import React, { Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Highcharts from 'react-highcharts'
 
-const mapStateToProps = ({ question_text }) => ({ question_text })
+const mapStateToProps = ({}) => ({})
 
-class Chart extends Component {
-  constructor(props) {
-    super(props)
-    const { expanded } = this.props
-    this.state = { expanded: expanded }
-  }
-  
-  handleExpandChange(expanded) {
-    this.setState({ expanded: expanded })
-  }
-  
-  render() {
-    const { oneone, onetwo, twoone, twotwo, question_text } = this.props
-    return (
-    <Card
-      expanded={this.state.expanded}
-      onExpandChange={this.handleExpandChange.bind(this)}
-    >
-      <CardHeader
-        title={"実験結果"}
-        actAsExpander={true}
-        showExpandableButton={true}
-      />
-      <CardText expandable={true}>
-        <span>
-          {(oneone + onetwo != 0)?
-            <Highcharts
-              config={{
-                  chart: {
-                    type: 'pie'
-                  },
-                  credits : {
-                    enabled: false,
-                  },
-                  title: {
-                    text: 'はじめの質問で' + question_text["question1"].title[0] + 'を選んだ人'
-                  },
-                  plotOptions: {
-                      pie: {
-                          dataLabels: {
-                              distance: -30,
-                              format: '{point.y:.0f}人'
-                          },
-                          showInLegend: true
-                     }
-                  },
-                  
-                  tooltip: {
-                    headerFormat: '<span>{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b><br/>'
-                  },
-                  series: [{
-                    name: '回答',
-                    colorByPoint: true,
-                    data: [{
-                      name: '次の質問で' + question_text["question2"].title[0] + 'を選んだ人',
-                      y: oneone,
-                    }, {
-                       name: '次の質問で' + question_text["question2"].title[1] + 'を選んだ人',
-                       y: onetwo,
-                    }]
-                  }]
-             }} /> : <p>はじめの質問で{question_text["question1"].title[0]}を選んだ人はいませんでした。</p>}
-          {(twoone + twotwo != 0)?
-            <Highcharts
-              config={{
-                  chart: {
-                    type: 'pie'
-                  },
-                  credits : {
-                    enabled: false,
-                  },
-                  title: {
-                    text: 'はじめの質問で' + question_text["question1"].title[1] + 'を選んだ人'
-                  },
-                  plotOptions: {
-                      pie: {
-                          dataLabels: {
-                              distance: -30,
-                              format: '{point.y:.0f}人'
-                          },
-                          showInLegend: true
-                     }
-                  },  
-    
-                  tooltip: {
-                     headerFormat: '<span>{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> <br/>'
-                  },
-                  series: [{
-                     name: '回答',
-                   colorByPoint: true,
-                   data: [{
-                       name: '次の質問で' + question_text["question2"].title[1] + 'を選んだ人',
-                       y: twotwo,
-                      }, {
-                       name: '次の質問で' + question_text["question2"].title[0] + 'を選んだ人',
-                       y: twoone,
-                   }]
-                  }]
-             }} /> : <p>はじめの質問で{question_text["question1"].title[1]}を選んだ人はいませんでした。</p>}
-        </span>
-      </CardText>
-    </Card>
-  )
-  }
-}
+const Chart = (({add, rate}) => {
+     var fullrate = rate.concat(rate)
+     for(var i = rate.length; i < fullrate.length; i++){
+       fullrate[i] = -fullrate[i]
+      }
+     var data = Object.keys(add).map((key, index) => [fullrate[index], add[key] + 1000])
 
-export default connect(mapStateToProps)(Chart)
+      return <Highcharts
+              config={{
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        credits : {
+            enabled: false,
+        },
+        title: {
+            text: '実験結果'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: '確率[%]'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: '金額[円]'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x}%の時の金額 {point.y}円'
+                }
+            },
+       },
+        series: [{
+            type: 'scatter',
+            name: '金額',
+            color: 'rgba(70, 70, 230, .5)',
+            data: data
+        }]
+    }} />
+})
+
+export default connect()(Chart)

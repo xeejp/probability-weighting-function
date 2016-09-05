@@ -1,12 +1,15 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-const mapStateToProps = ({  }) => ({
+import CardChart from 'components/CardChart'
+
+const mapStateToProps = ({ add,  rate}) => ({
+  add, rate
 })
 
-const Result = ({ }) => (
+const Result = ({ add, rate }) => (
   <div>
-
+    <CardChart add={add} rate={rate} expanded={true}/>
   </div>
 )
 

@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Step, Stepper, StepButton } from 'material-ui/Stepper'
 
@@ -47,7 +48,7 @@ class PageButtons extends Component {
         <Stepper activeStep={pages.indexOf(page)} linear={false}>
           {buttons}
         </Stepper>
-        <RaisedButton onClick={this.backPage.bind(this)} disabled={page == "waiting"} style={{ marginLeft: '3%' }}>戻る</RaisedButton>
+        <FlatButton onClick={this.backPage.bind(this)} disabled={page == "waiting"} style={{ marginLeft: '3%' }}>戻る</FlatButton>
         <RaisedButton onClick={this.nextPage.bind(this)} primary={true} style={{ marginLeft: '3%' }}>次へ</RaisedButton>
       </span>
     )

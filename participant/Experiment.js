@@ -6,6 +6,8 @@ import {Card, CardText, CardTitle } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import SwipeableViews from 'react-swipeable-views'
 import Question from './Question'
+import Result from './Result'
+
 import { Start } from './actions'
 
 const mapStateToProps = ({ money,unit,ansed,question,state}) => ({
@@ -40,7 +42,7 @@ class Experiment extends Component {
     case 1:
       return (<Question />)
 		case 2:
-			return (<span></span>)
+			return (<Result />)
     }
   }
 }
