@@ -31,11 +31,12 @@ defmodule ProbabilityWeighTingFunction do
 
   # Host router
   def handle_received(data, %{"action" => action, "params" => params}) do
-    Logger.debug("[PWF] #{action} #{params}")
+    Logger.debug("[PWF] #{action}")
     result = case {action, params} do
       {"fetch contents", _} -> Host.fetch_contents(data)
       {"change page", page} -> Host.change_page(data, page)
       {"all reset", _}      -> Host.all_reset(data)
+      {"update question", question_text} -> Host.update_question(data, question_text)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)

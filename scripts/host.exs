@@ -22,23 +22,25 @@ defmodule ProbabilityWeighTingFunction.Host do
   def all_reset(data) do
     
     data = data |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, _ } ->
-      {id,
-        %{
-          ansed: false,
-          rate: [30, 60, 90],
-          question: [0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4,5,5,5,5,5,5,5],
-          add: %{"0" =>1000, "1" =>1000, "2" =>1000, "3" =>1000, "4" =>1000, "5" =>1000},
-          plus: %{"0" =>1000, "1" =>1000, "2" =>1000, "3" =>1000, "4" =>1000, "5" =>1000},
-          befor: %{"0" => -1, "1" => -1, "2" => -1, "3" => -1, "4" => -1, "5" => -1},
-          down: %{"0" => false, "1" => false, "2" => false, "3" => false, "4" => false, "5" => false},
-     state: 0,
-          slideIndex: 0,
-        }
-      }
+      {id, Main.new_participant(data)}
     end), %{}))
     data = data
            |>put_in([:anses],0)
     Actions.all_reset(data)
+  end
+
+  def update_question(data, question_text) do
+    data = data |> Map.put(:money, question_text["money"])
+                    |> Map.put(:add, question_text["add"])
+                    |> Map.put(:unit, question_text["unit"])
+                    |> Map.put(:participants, data.participants 
+                    |> Enum.map(fn {key, value} -> {key, value 
+                    |> Map.put(:money, question_text["money"])
+                    |> Map.put(:add, %{"0" =>question_text["add"], "1" =>question_text["add"], "2" =>question_text["add"], "3" =>question_text["add"], "4" =>question_text["add"], "5" =>question_text["add"]})
+                    |> Map.put(:plus, %{"0" =>question_text["add"], "1" =>question_text["add"], "2" =>question_text["add"], "3" =>question_text["add"], "4" =>question_text["add"], "5" =>question_text["add"]})
+                    |> Map.put(:unit, question_text["unit"])} end)
+                    |> Enum.into(%{}))
+    Actions.update_question(data, question_text)
   end
 
   # Utilities

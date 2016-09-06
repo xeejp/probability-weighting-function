@@ -7,18 +7,18 @@ import Divider from 'material-ui/Divider'
 
 import PageButtons from './PageButtons'
 import Users from './Users'
+import EditQuestion from './EditQuestion'
 
 import Chart from 'components/Chart'
 import ChartList from 'components/ChartList'
 
-const mapStateToProps = ({loading, page, participants}) => ({
-  loading, page, participants
+const mapStateToProps = ({loading, page, participants, money}) => ({
+  loading, page, participants, money
 })
 
 class App extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = {}
   }
 
   componentDidMount() {
@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   render() {
-    const { loading, page, participants } = this.props
+    const { loading, page, participants, money } = this.props
     if (loading) {
       return <p>ロード中です。</p>
     } else {
@@ -41,7 +41,8 @@ class App extends Component {
              }}
             />
           <Users /><br />
-          <ChartList participants={participants} />
+          <ChartList participants={participants} base={money} /><br />
+          <EditQuestion />
         </div>
       )
     }

@@ -29,7 +29,7 @@ class ChartList extends Component {
   }
 
   render() {
-    const { participants } = this.props
+    const { participants, base } = this.props
 
     const styles = {
       mediumIcon: {
@@ -50,7 +50,7 @@ class ChartList extends Component {
       }
     }
 
-    var charts = Object.keys(participants).map((key, index) => <Chart key={key} add={participants[key].add} rate={participants[key].rate} title={key + "の結果"} />)
+    var charts = Object.keys(participants).map((key, index) => <Chart key={key} add={participants[key].add} rate={participants[key].rate} base={base} title={key + "の結果"} />)
 
     return (
     <Card

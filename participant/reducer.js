@@ -30,6 +30,9 @@ const reducer = concatenateReducers([
       {
         state: 2
       }
+    ),
+    'update': (_, {payload: { money, add, unit }}) => (
+      {money: money, add: add, plus: add, unit: unit}
     )
   }),
   handleAction('update contents', () => ({ loading: false }), { loading: true }),

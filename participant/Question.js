@@ -29,7 +29,7 @@ class Question extends Component  {
   <div>
    <RaisedButton onClick={this.next.bind(this, {choice: 1, type: type})} style={{float: 'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
      <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
-        100%の確率で1000{unit + ((type <= 2)? "もらえる。" : "失う。")}
+        100%の確率で{money}{unit + ((type <= 2)? "もらえる。" : "失う。")}
      </div>
    </RaisedButton>
    <RaisedButton onClick={this.next.bind(this, {choice: 2, type: type})} style={{float:  'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>

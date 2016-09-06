@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 
 import CardChart from 'components/CardChart'
 
-const mapStateToProps = ({ add,  rate}) => ({
-  add, rate
+const mapStateToProps = ({ add,  rate, money }) => ({
+  add, rate, money
 })
 
-const Result = ({ add, rate }) => (
+const Result = ({ add, rate, money }) => (
   <div>
-    <CardChart add={add} rate={rate} expanded={true}/>
+    <CardChart add={add} rate={rate} base={money} expanded={true}/>
   </div>
 )
 

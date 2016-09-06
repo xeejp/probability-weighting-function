@@ -1,6 +1,7 @@
 defmodule ProbabilityWeighTingFunction.Actions do
   alias ProbabilityWeighTingFunction.Participant
   alias ProbabilityWeighTingFunction.Host
+  alias ProbabilityWeighTingFunction.Main
 
   def change_page(data, page) do
     action = get_action("change page", page)
@@ -20,19 +21,14 @@ defmodule ProbabilityWeighTingFunction.Actions do
 
   def all_reset(data) do
     host = get_action("update contents", Host.format_contents(data))
-    action = get_action("reset", %{
-        ansed: false,
-        rate: [30, 60, 90],
-        question: [0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4,5,5,5,5,5,5,5],
-        add: %{"0" =>1000, "1" =>1000, "2" =>1000, "3" =>1000, "4" =>1000, "5" =>1000},
-        plus: %{"0" =>1000, "1" =>1000, "2" =>1000, "3" =>1000, "4" =>1000, "5" =>1000},
-        befor: %{"0" => -1, "1" => -1, "2" => -1, "3" => -1, "4" => -1, "5" => -1},
-        down: %{"0" => false, "1" => false, "2" => false, "3" => false, "4" => false, "5" => false},
-        state: 0,
-        slideIndex: 0,
-      }
-    )
+    action = get_action("reset", Main.new_participant(data))
     format(data, host, dispatch_to_all(data, action))
+  end
+
+  def update_question(data, question_text) do
+    host = get_action("update", question_text)
+    participant = get_action("update", %{money: question_text["money"], add: %{"0" =>question_text["add"], "1" =>question_text["add"], "2" =>question_text["add"], "3" =>question_text["add"], "4" =>question_text["add"], "5" =>question_text["add"]}, unit: question_text["unit"]})
+    format(data, host, dispatch_to_all(data, participant))
   end
 
   def set_question(data,id,question) do

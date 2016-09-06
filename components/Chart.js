@@ -5,12 +5,12 @@ import Highcharts from 'react-highcharts'
 
 const mapStateToProps = ({}) => ({})
 
-const Chart = (({ add, rate, title}) => {
+const Chart = (({ add, rate, base, title}) => {
      var fullrate = rate.concat(rate)
      for(var i = rate.length; i < fullrate.length; i++){
        fullrate[i] = -fullrate[i]
       }
-     var data = Object.keys(add).map((key, index) => [fullrate[index], add[key] + 1000])
+     var data = Object.keys(add).map((key, index) => [fullrate[index], add[key] + base])
 
       return <Highcharts
               config={{

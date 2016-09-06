@@ -19,7 +19,7 @@ class CardChart extends Component {
   }
   
   render() {
-    const { add, rate } = this.props
+    const { add, rate, base } = this.props
 
     return (
     <Card
@@ -32,7 +32,7 @@ class CardChart extends Component {
         showExpandableButton={true}
       />
       <CardText expandable={true}>
-        <Chart add={add} rate={rate} />
+        <Chart add={add} rate={rate} base={base} />
       </CardText>
     </Card>
   )

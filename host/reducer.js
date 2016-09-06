@@ -21,6 +21,9 @@ const reducer = concatenateReducers([
       result[id].plus = plus
       return ({ participants: result })
     },
+    'update': (_, {payload: { money, add, unit }}) => ({
+      money: money, add: add, unit: unit
+    })
   }, {}),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])
