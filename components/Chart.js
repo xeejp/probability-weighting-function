@@ -5,7 +5,7 @@ import Highcharts from 'react-highcharts'
 
 const mapStateToProps = ({}) => ({})
 
-const Chart = (({add, rate}) => {
+const Chart = (({ add, rate, title}) => {
      var fullrate = rate.concat(rate)
      for(var i = rate.length; i < fullrate.length; i++){
        fullrate[i] = -fullrate[i]
@@ -22,7 +22,7 @@ const Chart = (({add, rate}) => {
             enabled: false,
         },
         title: {
-            text: '実験結果'
+            text: (title == undefined)? '実験結果' : title
         },
         xAxis: {
             title: {

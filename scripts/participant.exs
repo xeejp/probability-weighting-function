@@ -36,7 +36,10 @@ defmodule ProbabilityWeighTingFunction.Participant do
     end
     data = data
            |>put_in([:participants,id,:slideIndex],slideIndex)
-    Actions.next(data,id,slideIndex)
+    case n do
+      "7" -> Actions.finish(data = data |> put_in([:participants,id,:state],2), id)
+        _  -> Actions.next(data,id,slideIndex)
+    end
   end
 
   def finish(data,id) do
@@ -54,7 +57,7 @@ defmodule ProbabilityWeighTingFunction.Participant do
       money: data.money,
       unit: data.unit,
       anses: data.anses,
-      actives: Map.size(data.participants)
+      joined: Map.size(data.participants)
     }
   end
 

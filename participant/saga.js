@@ -42,9 +42,6 @@ function* nextSaga(){
         plus[type] = Math.abs(plus[type]) * flag
         yield call(sendData, 'next',  {add: add, plus: plus, choice: choice, type: type})
         break;
-      case 7:
-        yield call(sendData, 'finish')
-        break
       default:
         yield call(sendData, 'next', {add: add, plus: plus, choice: choice, type: type})
         break

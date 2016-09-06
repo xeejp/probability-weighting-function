@@ -9,9 +9,10 @@ import PageButtons from './PageButtons'
 import Users from './Users'
 
 import Chart from 'components/Chart'
+import ChartList from 'components/ChartList'
 
-const mapStateToProps = ({loading, page}) => ({
-  loading, page
+const mapStateToProps = ({loading, page, participants}) => ({
+  loading, page, participants
 })
 
 class App extends Component {
@@ -26,7 +27,7 @@ class App extends Component {
   }
 
   render() {
-    const { loading, page } = this.props
+    const { loading, page, participants } = this.props
     if (loading) {
       return <p>ロード中です。</p>
     } else {
@@ -39,7 +40,8 @@ class App extends Component {
                 marginBottom: '5%'
              }}
             />
-          <Users />
+          <Users /><br />
+          <ChartList participants={participants} />
         </div>
       )
     }

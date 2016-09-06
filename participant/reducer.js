@@ -7,7 +7,7 @@ const reducer = concatenateReducers([
   handleActions({
     'update contents': (_, { payload }) => payload,
     'change page': (_, { payload }) => ({ page: payload }),
-    'joined': (_, { payload }) => ({ actives: payload }),
+    'joined': (_, { payload }) => ({ joined: payload }),
     'reset': (_, { payload: {ansed, rate, question, add, plus, befor, state, slideIndex} }) => ( 
       {
         ansed: ansed, rate: rate, question: question, add: add, plus: plus, befor: befor, state: state, slideIndex: slideIndex

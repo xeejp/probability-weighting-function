@@ -14,7 +14,13 @@ const reducer = concatenateReducers([
       const result = Object.assign({},participants)
 	    result[id].state = 1
       return ( { participants: result } )
-    }
+    },
+    'update_result': ({ participants }, { payload: {id, add, plus}}) => {
+      const result = Object.assign({}, participants)
+      result[id].add = add
+      result[id].plus = plus
+      return ({ participants: result })
+    },
   }, {}),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])

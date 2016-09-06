@@ -42,13 +42,15 @@ defmodule ProbabilityWeighTingFunction.Actions do
   end
 
   def next(data,id,slideIndex) do
+    host = get_action("update_result", %{id: id, add: data.participants[id].add, plus: data.participants[id].plus})
     participant = get_action("change index", %{slideIndex_data: slideIndex , add: data.participants[id].add, plus: data.participants[id].plus})
-    format(data,nil,dispatch_to(id,participant))
+    format(data, host, dispatch_to(id,participant))
   end
 
   def finish(data,id) do
+    host = get_action("update_result", %{id: id, add: data.participants[id].add, plus: data.participants[id].plus})
     participant = get_action("to_result", %{})
-    format(data,nil,dispatch_to(id,participant))
+    format(data, host, dispatch_to(id,participant))
   end
 
   def update_participant_contents(data, id) do
