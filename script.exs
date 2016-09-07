@@ -49,6 +49,7 @@ defmodule ProbabilityWeighTingFunction do
       {"fetch contents", _} -> Participant.fetch_contents(data, id)
       {"set question", question} -> Participant.set_question(data,id,question)
       {"next", add} -> Participant.next(data,id,add)
+      {"finish", _} -> Participant.finish(data, id)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)

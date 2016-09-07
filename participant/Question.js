@@ -50,15 +50,15 @@ class Question extends Component  {
       setTimeout(this.next.bind(this, {choice:1 ,type: 6}), 10000)
       this.only = false
     }
-    return(<div>
+    return(<div style={{margin: '5%'}}>
     <p>しばらくお待ちください</p>
     </div>
     )
   }
 
   finish(){
-      return(<div>
-      <p>終わり</p>
+      return(<div style={{margin: '5%'}}>
+      <p>終了しました。</p>
       <RaisedButton onClick={this.next.bind(this, {choice:1 ,type: 7})}>結果へ</RaisedButton>
       </div>
       )
