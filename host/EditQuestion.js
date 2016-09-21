@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import {Card} from 'material-ui/Card'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ImageEdit from 'material-ui/svg-icons/image/edit'
-import FlatButton from 'material-ui/RaisedButton'
+import RaisedButton from 'material-ui/RaisedButton'
 import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
+import Snackbar from 'material-ui/Snackbar'
 
-import { updateQuestion } from './actions'
+import { updateQuestion, fetchContents } from './actions'
 
 
 
@@ -27,6 +27,8 @@ class EditQuestion extends Component {
         unit: unit
       },
       open: false,
+      snack: false,
+      message: "設定を送信しました。",
       disabled: false,
       default_text: {
         money: 1000,
@@ -42,18 +44,21 @@ class EditQuestion extends Component {
         <TextField
           hintText={"お金の初期値"}
           defaultValue={this.state.question_text['money']}
+          floatingLabelText={"お金の初期値"}
           onBlur={this.handleChangeOnlyNum.bind(this, ['money'])}
           fullWidth={true}
        />
         <TextField
           hintText={"増減の初期値"}
           defaultValue={this.state.question_text['add']}
+          floatingLabelText={"増減の初期値"}
           onBlur={this.handleChangeOnlyNum.bind(this, ['add'])}
           fullWidth={true}
        />
         <TextField
           hintText={"お金の単位"}
           defaultValue={this.state.question_text['unit']}
+          floatingLabelText={"お金の単位"}
           onBlur={this.handleChange.bind(this, ['unit'])}
           fullWidth={true}
        />
@@ -62,7 +67,15 @@ class EditQuestion extends Component {
   }
 
   handleOpen() {
-    this.setState({ open: true })
+    const { dispatch } = this.props
+    dispatch(fetchContents())
+    this.setState({
+      open: true,
+      question_text: {
+        money: this.props.money,
+        add: this.props.add,
+        unit: this.props.unit
+      }    })
   }
 
   handleClose() {
@@ -97,34 +110,47 @@ class EditQuestion extends Component {
       this.setState({ question_text: question_text, disabled: true })
     }
   }
-
-  submit() {
-    const { dispatch } = this.props
-    dispatch(updateQuestion(this.state.question_text))
-    this.setState({ open: false })
+  
+  handleRequestClose() {
+    this.setState({ snack: false })
   }
 
-  reset() {
+  submit() {
+    this.setState({
+      open: false,
+      snack: true,
+      message: "設定を送信しました。"
+    })
+    const { dispatch } = this.props
+    dispatch(updateQuestion(this.state.question_text))
+  }
+
+  reset(){
+    this.setState({
+      question_text: this.state.default_text,
+      open: false,
+      snack: true,
+      message: "設定を初期化しました。"
+    })
     const { dispatch } = this.props
     dispatch(updateQuestion(this.state.default_text))
-    this.setState({ question_text: this.state.default_text, open: false, disabled: false})
   }
 
   render() {
     const { page } = this.props
     const actions = [
-      <FlatButton
+      <RaisedButton
         label="適用"
         disabled={this.state.disabled}
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.submit.bind(this)}
       />,
-      <FlatButton
+      <RaisedButton
         label="キャンセル"
         onTouchTap={this.handleClose.bind(this)}
       />,
-     <FlatButton
+     <RaisedButton
         label="すべてリセット"
         onTouchTap={this.reset.bind(this)}
       />,
@@ -139,11 +165,16 @@ class EditQuestion extends Component {
       actions={actions}
       modal={false}
       open={this.state.open}
-      onRequestClose={this.handleClose.bind(this)}
       autoScrollBodyContent={true}
     >
       {this.QuestionTab()}
     </Dialog>
+      <Snackbar
+        open={this.state.snack}
+        message={this.state.message}
+        autoHideDuration={2000}
+        onRequestClose={this.handleRequestClose.bind(this)}
+      />
     </div>)
   }
 }
