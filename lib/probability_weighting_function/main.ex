@@ -13,6 +13,7 @@ defmodule ProbabilityWeighTingFunction.Main do
       money: 1000,
       add: 1000,
       unit: "円",
+      rate: [30, 60, 90],
     }
   end
 
