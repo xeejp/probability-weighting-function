@@ -1,7 +1,7 @@
 defmodule ProbabilityWeighTingFunction.Mixfile do 
   use Mix.Project 
   def project do 
-    [app: :probability_weighting_function, 
+    [app: :xee_probability_weighting_function, 
      version: "0.1.0", 
      build_path: "../../_build", 
      config_path: "../../config/config.exs", 
