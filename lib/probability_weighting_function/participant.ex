@@ -1,5 +1,5 @@
-defmodule ProbabilityWeighTingFunction.Participant do
-  alias ProbabilityWeighTingFunction.Actions
+defmodule ProbabilityWeightingFunction.Participant do
+  alias ProbabilityWeightingFunction.Actions
 
   require Logger
 

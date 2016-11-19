@@ -1,5 +1,5 @@
-defmodule ProbabilityWeighTingFunction.Main do
-  alias ProbabilityWeighTingFunction.Actions
+defmodule ProbabilityWeightingFunction.Main do
+  alias ProbabilityWeightingFunction.Actions
 
   @pages ["waiting", "experiment", "result"]
 

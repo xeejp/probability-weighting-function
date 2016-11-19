@@ -1,4 +1,4 @@
-defmodule ProbabilityWeighTingFunction.Mixfile do 
+defmodule ProbabilityWeightingFunction.Mixfile do 
   use Mix.Project 
   def project do 
     [app: :xee_probability_weighting_function, 

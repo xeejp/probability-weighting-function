@@ -1,9 +1,9 @@
-defmodule ProbabilityWeighTingFunction do 
+defmodule ProbabilityWeightingFunction do 
   use XeeThemeScript 
   require Logger 
-  alias ProbabilityWeighTingFunction.Main 
-  alias ProbabilityWeighTingFunction.Host 
-  alias ProbabilityWeighTingFunction.Participant 
+  alias ProbabilityWeightingFunction.Main 
+  alias ProbabilityWeightingFunction.Host 
+  alias ProbabilityWeightingFunction.Participant 
   # Callbacks 
   def script_type do 
     :message 

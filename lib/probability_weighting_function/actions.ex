@@ -1,7 +1,7 @@
-defmodule ProbabilityWeighTingFunction.Actions do
-  alias ProbabilityWeighTingFunction.Participant
-  alias ProbabilityWeighTingFunction.Host
-  alias ProbabilityWeighTingFunction.Main
+defmodule ProbabilityWeightingFunction.Actions do
+  alias ProbabilityWeightingFunction.Participant
+  alias ProbabilityWeightingFunction.Host
+  alias ProbabilityWeightingFunction.Main
 
   def change_page(data, page) do
     action = get_action("change page", page)

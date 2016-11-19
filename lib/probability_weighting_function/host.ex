@@ -1,6 +1,6 @@
-defmodule ProbabilityWeighTingFunction.Host do
-  alias ProbabilityWeighTingFunction.Main
-  alias ProbabilityWeighTingFunction.Actions
+defmodule ProbabilityWeightingFunction.Host do
+  alias ProbabilityWeightingFunction.Main
+  alias ProbabilityWeightingFunction.Actions
 
   require Logger
 
